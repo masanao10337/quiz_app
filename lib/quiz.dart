@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/data/questions.dart';
 import 'package:quiz_app/screens/questions_screen.dart';
 import 'package:quiz_app/screens/start_screen.dart';
+import 'package:quiz_app/screens/result_screen.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -11,36 +12,50 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  String activeScreen = 'start-screen';
+  String currentScreen = 'start-screen';
   List<String> selectedAnswers = [];
 
-  void switchScreen() {
-    setState(() {
-      activeScreen = 'questions-screen';
-    });
+  // TODO: refactor
+  void goQuiz() {
+    _goToScreen('questions-screen');
   }
 
-  bool _isStartScreen() {
-    return activeScreen == 'start-screen';
+  void goResult() {
+    _goToScreen('result-screen');
+  }
+
+  void backToStart() {
+    _goToScreen('start-screen');
   }
 
   void storeAnswer(String answer) {
     selectedAnswers.add(answer);
-
-    // 関心事が重複している。switchScreenとの流用を考えること。
+    // 関心事が重複している。
     if (selectedAnswers.length == questions.length) {
       setState(() {
         selectedAnswers = [];
-        activeScreen = 'start-screen';
+        goResult();
       });
     }
   }
 
+  void _goToScreen(String screenName) {
+    setState(() {
+      currentScreen = screenName;
+    });
+  }
+
   @override
   Widget build(context) {
-    final screenWidget = _isStartScreen()
-        ? StartScreen(switchScreen)
-        : QuestionsScreen(storeAnswer: storeAnswer);
+    Map<String, Widget> screens = {
+      'start-screen': StartScreen(startQuiz: goQuiz),
+      'questions-screen': QuestionsScreen(storeAnswer: storeAnswer),
+      'result-screen': ResultScreen(
+        backToStart: backToStart,
+        chosenAnswers: selectedAnswers,
+      ),
+    };
+    Widget screenWidget = screens[currentScreen]!;
 
     return MaterialApp(
       home: Scaffold(
