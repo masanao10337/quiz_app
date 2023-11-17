@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/screens/question_screen.dart';
+import 'package:quiz_app/data/questions.dart';
+import 'package:quiz_app/screens/questions_screen.dart';
 import 'package:quiz_app/screens/start_screen.dart';
 
 class Quiz extends StatefulWidget {
@@ -11,7 +12,7 @@ class Quiz extends StatefulWidget {
 
 class _QuizState extends State<Quiz> {
   String activeScreen = 'start-screen';
-  final List<String> selectedAnswers = [];
+  List<String> selectedAnswers = [];
 
   void switchScreen() {
     setState(() {
@@ -25,12 +26,21 @@ class _QuizState extends State<Quiz> {
 
   void storeAnswer(String answer) {
     selectedAnswers.add(answer);
+
+    // 関心事が重複している。switchScreenとの流用を考えること。
+    if (selectedAnswers.length == questions.length) {
+      setState(() {
+        selectedAnswers = [];
+        activeScreen = 'start-screen';
+      });
+    }
   }
 
   @override
   Widget build(context) {
-    final screenWidget =
-        _isStartScreen() ? StartScreen(switchScreen) : QuestionScreen(storeAnswer: storeAnswer);
+    final screenWidget = _isStartScreen()
+        ? StartScreen(switchScreen)
+        : QuestionsScreen(storeAnswer: storeAnswer);
 
     return MaterialApp(
       home: Scaffold(

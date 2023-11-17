@@ -3,16 +3,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/widgets/answer_button.dart';
 import 'package:quiz_app/data/questions.dart';
 
-class QuestionScreen extends StatefulWidget {
-  const QuestionScreen({required this.storeAnswer, super.key});
+class QuestionsScreen extends StatefulWidget {
+  const QuestionsScreen({required this.storeAnswer, super.key});
 
   final void Function(String answer) storeAnswer;
 
   @override
-  State<QuestionScreen> createState() => _QuestionScreenState();
+  State<QuestionsScreen> createState() => _QuestionsScreenState();
 }
 
-class _QuestionScreenState extends State<QuestionScreen> {
+class _QuestionsScreenState extends State<QuestionsScreen> {
   int questionIndex = 0;
 
   void answserQuestion(String selecetedAnswer) {
