@@ -33,7 +33,6 @@ class _QuizState extends State<Quiz> {
     // 関心事が重複している。
     if (selectedAnswers.length == questions.length) {
       setState(() {
-        selectedAnswers = [];
         goResult();
       });
     }
