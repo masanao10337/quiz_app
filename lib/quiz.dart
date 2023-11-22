@@ -25,16 +25,18 @@ class _QuizState extends State<Quiz> {
   }
 
   void backToStart() {
+    selectedAnswers = [];
     _goToScreen('start-screen');
   }
 
   void storeAnswer(String answer) {
     selectedAnswers.add(answer);
-    // 関心事が重複している。
+    _watchQuestionState();
+  }
+
+  void _watchQuestionState() {
     if (selectedAnswers.length == questions.length) {
-      setState(() {
-        goResult();
-      });
+      goResult();
     }
   }
 

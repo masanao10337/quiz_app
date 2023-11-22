@@ -52,7 +52,7 @@ class ResultScreen extends StatelessWidget {
             const SizedBox(height: 30),
             QuestionSummary(summaryData: summaryData),
             const SizedBox(height: 30),
-            TextButton(onPressed: () {}, child: const Text('back to top')),
+            TextButton(onPressed: backToStart, child: const Text('back to top')),
           ],
         ),
       ),
