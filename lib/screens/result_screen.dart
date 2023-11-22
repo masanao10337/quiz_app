@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/data/questions.dart';
-import 'package:quiz_app/widgets/question_summary.dart';
+import 'package:quiz_app/widgets/question_summary/question_summary.dart';
 
 class ResultScreen extends StatelessWidget {
-  const ResultScreen(
-      {required this.backToStart, required this.chosenAnswers, super.key});
+  const ResultScreen({
+    required this.backToStart,
+    required this.chosenAnswers,
+    super.key,
+  });
 
   final List<String> chosenAnswers;
   final void Function() backToStart;
@@ -52,7 +55,14 @@ class ResultScreen extends StatelessWidget {
             const SizedBox(height: 30),
             QuestionSummary(summaryData: summaryData),
             const SizedBox(height: 30),
-            TextButton(onPressed: backToStart, child: const Text('back to top')),
+            TextButton.icon(
+              onPressed: backToStart,
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+              ),
+              icon: const Icon(Icons.refresh),
+              label: const Text('back to top'),
+            ),
           ],
         ),
       ),

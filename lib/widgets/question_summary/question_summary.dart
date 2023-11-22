@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/widgets/result_container.dart';
+import 'package:quiz_app/widgets/question_summary/summary_item.dart';
 
 class QuestionSummary extends StatelessWidget {
   const QuestionSummary({required this.summaryData, super.key});
@@ -9,14 +9,10 @@ class QuestionSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
+      height: 400,
       child: SingleChildScrollView(
         child: Column(
-          children: summaryData.map(
-            (data) {
-              return ResultContainer(data: data);
-            },
-          ).toList(),
+          children: summaryData.map((data) => SummaryItem(data: data)).toList(),
         ),
       ),
     );
